@@ -51,6 +51,16 @@ std::string printDecExpColor(double value)
 }
 int main()
 {
+    auto lambdaNilakantha = [](long double i) -> long double
+    {
+        return pow(-1,i) * 4.0L / ((2*i+2)*(2*i+3)*(2*i+4));
+    };
+    auto lambdaLeibnitz = [](long double i) -> long double
+    {
+        return pow(-1,i) * 4.0L / (2*i+1);
+    };
+
+
     long double decExp{};
     long double decExpLeibnitz{};
     long double eps = std::numeric_limits<long double>::epsilon() * 100;
@@ -71,8 +81,8 @@ int main()
     for (long double i = 0 ; i < 5000000 ; ++i)
     {
         auto now = std::chrono::high_resolution_clock::now();
-        long double tmp = pow(-1,i) * 4.0L / ((2*i+2)*(2*i+3)*(2*i+4));
-        long double tmpLeibnitz = pow(-1,i) * 4.0L / (2*i+1);
+        long double tmp = lambdaNilakantha(i);
+        long double tmpLeibnitz = lambdaLeibnitz(i);
         auto stoper = std::chrono::duration_cast<std::chrono::seconds>(now - begin);
         std::cout 
             << "\e[A"
